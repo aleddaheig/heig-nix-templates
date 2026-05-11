@@ -1,5 +1,5 @@
 {
-  description = "Python Cryptography dev environment";
+  description = "CRY development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

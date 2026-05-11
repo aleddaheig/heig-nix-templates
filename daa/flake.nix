@@ -1,5 +1,5 @@
 {
-  description = "Android development environment flake";
+  description = "DAA development environment";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

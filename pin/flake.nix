@@ -1,5 +1,5 @@
 {
-  description = "A Nix-flake-based PCO development environment";
+  description = "PIN development environment";
   inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
   outputs =
     { self, nixpkgs }:

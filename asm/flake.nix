@@ -1,5 +1,5 @@
 {
-  description = "Cross-compilation environment for i686 and ARMv7 with QEMU";
+  description = "ASM development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
