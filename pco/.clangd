@@ -1,0 +1,59 @@
+CompileFlags:
+  Add:
+    - -std=c++17
+    - -Wall
+    - -Wextra
+    - -Wthread-safety # Enable Clang's thread safety analysis
+    - -pthread # Enable pthread support
+    - -D_REENTRANT # Define reentrant code flag
+    - -march=native # Optimize for your CPU architecture
+    - -O2 # Optimization level safe for debugging
+  CompilationDatabase: build
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - bugprone-*
+      - modernize-*
+      - readability-*
+      - performance-*
+      - clang-analyzer-*
+      - misc-*
+      - cppcoreguidelines-*
+      - concurrency-* # Thread-unsafe function detection
+      - bugprone-use-after-move
+      - bugprone-assert-side-effect
+      - misc-const-correctness
+      - performance-move-const-arg
+      - performance-noexcept-move-constructor
+    Remove:
+      - modernize-use-trailing-return-type
+      - readability-braces-around-statements
+      - readability-identifier-length
+      - clang-analyzer-alpha.*
+      - performance-avoid-endl
+      - readability-magic-numbers # Often noisy in multithreaded code
+    CheckOptions:
+      concurrency-mt-unsafe.FunctionSet: "any" # Strictest thread-safety checks
+      performance-move-const-arg.CheckTriviallyCopyableMove: true
+      cppcoreguidelines-avoid-non-const-global-variables.CheckIgnoreNonConstexpr: false
+    FastCheckFilter: None
+
+  UnusedIncludes: Strict
+
+Index:
+  Background: Build # Index in background for better performance
+
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: false
+  Designators: true # Helpful for struct initialization
+  BlockEnd: false
+
+Completion:
+  AllScopes: true
+  ShowOrigins: true # Show where completions come from
+
+Hover:
+  ShowAKA: true # Show type aliases in hover

@@ -1,0 +1,56 @@
+#target: dependencies
+#(tab)command
+
+# Il n'y a qu'un type de variable: les chaines de caractères (string)
+#
+# Variables predefinies: make -p
+# CC: compilateur pour C
+# CXX: compilateur pour C++
+# CFLAGS: flags (options) pour le compilateur C
+# CXXFLAGS: flags (options) pour les compilateur C++
+# CPPFLAGS: flags (options) pour le preprocessor
+# LDFLAGS: flags (options) pour le linker (editeur de lien)
+
+# $@ : nom de la cible (target)
+# $< : nom de la premiere dependance
+# $^ : liste des dependances
+
+DEBUG ?= 1
+EXECUTE_NAME ?= main
+
+CFLAGS = -Wall -Wextra
+CC = gcc
+LD = gcc
+LDFLAGS =
+
+ifeq ($(DEBUG), 1)
+CFLAGS += -O0 -g
+else
+CFLAGS += -O3
+endif
+
+CC_TOOL = $(CC) $(CFLAGS)
+LD_TOOL = $(LD) $(LDFLAGS)
+
+SRC = $(wildcard *.c)
+OBJ = $(patsubst %.c, %.o, $(SRC))
+OBJ2 = $(SRC:.c=.o)
+
+all: build execute
+
+build: $(OBJ)
+	$(LD_TOOL) $^ -o $(EXECUTE_NAME)
+
+%.o: %.c
+	$(CC_TOOL) -c $< -o $@
+
+mylib.o: mylib.h
+
+execute:
+	./$(EXECUTE_NAME)
+
+clean:
+	rm -f $(EXECUTE_NAME)
+	rm -f *.o
+
+.PHONY: all build execute clean
