@@ -51,6 +51,25 @@
             ];
 
           python = pkgs."python${concatMajorMinor version}";
+
+          bingImageDownloader = pkgs.python3Packages.buildPythonPackage rec {
+            pname = "bing-image-downloader";
+            version = "1.0.4";
+            pyproject = true;
+            build-system = with pkgs.python3Packages; [
+              setuptools
+            ];
+            src = pkgs.python3Packages.fetchPypi {
+              pname = "bing_image_downloader";
+              inherit version;
+              sha256 = "sha256-rL6M84TKF0V+6jeoe8P1tOsKms7AnnW31k57NkgpEx0=";
+            };
+            doCheck = false;
+            propagatedBuildInputs = with pkgs.python3Packages; [
+              requests
+              beautifulsoup4
+            ];
+          };
         in
         {
           default = pkgs.mkShellNoCC {
@@ -90,6 +109,7 @@
               ipympl
               scikit-image
               pydot
+              bingImageDownloader
             ];
           };
         }
