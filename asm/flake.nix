@@ -53,6 +53,17 @@
           done
         '';
 
+        qemuLibs = with pkgs; [
+          ncurses
+          libpulseaudio
+          SDL2
+          xorg.libX11
+          zlib
+          pixman
+          dtc
+          glib
+          libpng12 # si disponible, sinon voir ci-dessous
+        ];
       in
       {
         devShells.default = pkgs.mkShell {
@@ -87,7 +98,7 @@
           };
 
           shellHook = ''
-            export LD_LIBRARY_PATH="${pkgs.ncurses}/lib:$LD_LIBRARY_PATH"
+            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath qemuLibs}:$LD_LIBRARY_PATH"
           '';
         };
       }
