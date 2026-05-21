@@ -70,6 +70,27 @@
               beautifulsoup4
             ];
           };
+
+          tfKerasVis = pkgs.python3Packages.buildPythonPackage rec {
+            pname = "tf-keras-vis";
+            version = "0.1.0";
+            pyproject = true;
+            build-system = with pkgs.python3Packages; [
+              setuptools
+            ];
+            src = pkgs.python3Packages.fetchPypi {
+              pname = "tf-keras-vis";
+              inherit version;
+              sha256 = "sha256-wX4wv5LYa8muDMDzg2I2WCeXeBHJFUOjPxeJBoyC82Y=";
+            };
+            doCheck = false;
+            propagatedBuildInputs = with pkgs.python3Packages; [
+              numpy
+              scipy
+              imageio
+              pillow
+            ];
+          };
         in
         {
           default = pkgs.mkShellNoCC {
@@ -110,6 +131,7 @@
               scikit-image
               pydot
               bingImageDownloader
+              tfKerasVis
             ];
           };
         }
